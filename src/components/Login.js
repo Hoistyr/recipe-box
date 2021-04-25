@@ -24,6 +24,7 @@ const Login = () => {
   
   return (
     <div className="login">
+      <h1 className="siteTitle">Recipe Box</h1>
       <form className="loginForm">
         <h1 className="loginTitle">Login</h1>
         <input 
