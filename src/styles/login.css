@@ -8,6 +8,16 @@
   align-items: center;
 }
 
+.logoName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginLogo {
+  margin-left: 20px;
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;
@@ -55,4 +65,11 @@
 .loginButton:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.87);
+}
+
+.loginErrorText {
+  padding: 0px;
+  margin: 5px;
+  font-size: 0.9rem;
+  color: rgb(255, 91, 86);
 }
