@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {logIn, logOut} from '../actions';
 import '../styles/login.css';
 import '../styles/main.css';
 import logo from '../images/logo.svg';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginErrors, setLoginErrors] = useState({
@@ -29,14 +32,15 @@ const Login = () => {
     loginUsernameErrorText: <p className="loginErrorText">Username is incorrect</p>,
     loginPasswordErrorText: <p className="loginErrorText">Password is incorrect</p>,
     });
+
+    dispatch(logIn());
   }
   
   return (
     <div className="login">
       <div className="logoName">
-        <h1 className="siteTitle">Recipe Box</h1>
         <img className="loginLogo" src={logo}></img>
-        
+        <h1 className="siteTitle">Recipe Box</h1>
       </div>
       
       <form className="loginForm">
