@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Login from './Login';
 import Header from './Header';
 import Home from './Home';
+import NewRecipeForm from './NewRecipeForm';
 
 const App = () => {
   const userLoggedIn = useSelector(state => state.isLogged);
@@ -18,6 +19,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path="/newrecipe" component={NewRecipeForm} />
         </Switch>
       
       </BrowserRouter>
