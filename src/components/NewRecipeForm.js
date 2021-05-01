@@ -61,6 +61,8 @@ const NewRecipeForm = () => {
       tags: [
         ...tagList
       ],
+      // TODO: Add a random generator for to create an id for the recipe when it is saved 
+      id: '',
     }
 
     setRecipeInformation({...recipe});
