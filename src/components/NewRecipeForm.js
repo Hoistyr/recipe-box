@@ -3,16 +3,116 @@ import React, {useState, useEffect} from 'react';
 import '../styles/newRecipeForm.css';
 
 const NewRecipeForm = () => {
+  const [recipeInformation, setRecipeInformation] = useState({});
+  const [currentIngredient, setCurrentIngredient] = useState('');
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [currentTool, setCurrentTool] = useState('');
+  const [toolList, setToolList] = useState([]);
+  const [toolListDiv, setToolListDiv] = useState([]);
+  const [currentDirection, setCurrentDirection] = useState('');
+  const [directionsList, setDirectionsList] = useState([]);
   const [currentTag, setCurrentTag] = useState('');
   const [tagList, setTagList] = useState([]);
   const [tagListDiv, setTagListDiv] = useState([]);
   
-  const addIngredient = () => {
+  const saveRecipe = (event) => {
+    event.preventDefault();
+    const form = event.target.parentNode;
+    const recipeName = form.querySelector('.recipeName').value;
+    const recipeDescription = form.querySelector('.recipeDescription').value || '';
+    const prepTime = form.querySelector('.prepTime').value || 0;
+    const cookTime = form.querySelector('.cookTime').value || 0;
+    const servings = form.querySelector('.servings').value || 0;
+    const cookingDevice = form.querySelector('.cookingDevice').value || '';
+    const ovenTemp = form.querySelector('.ovenTemp').value || 0;
+    const attribution = form.querySelector('.attribution').value || '';
+    const notes = form.querySelector('.recipeNotes').value || '';
+    const recipeDifficulty = form.querySelector('.recipeDifficulty').value || '';
+    
 
+
+    const recipe = {
+      recipeInfo: {
+        name: recipeName || '',
+        description: recipeDescription || '',
+        prepTime: prepTime || 0,
+        cookTime: cookTime || 0,
+        servings: servings || 0,
+        cookingDevice,
+        cookTemp: {
+          temp: ovenTemp || 0,
+          unit: '',
+        },
+      },
+      ingredients: [
+        ...ingredientsList
+      ],
+      tools: [
+        ...toolList
+      ],
+      directions: [
+        ...directionsList
+      ],
+      otherInformation: {
+        attribution,
+        notes,
+        difficulty: recipeDifficulty || '',
+      },
+      tags: [
+        ...tagList
+      ],
+    }
+
+    setRecipeInformation({...recipe});
+  }
+  
+  const addIngredient = (event) => {
+    event.preventDefault();
+    
+    if (!toolList.includes(currentTool)) {
+      setToolList([...toolList, currentTool]);
+    }
+
+    const toolListMap = toolList.map((tool) => {
+      return (
+        <div className="tool" key={tool}>
+          <p className="toolText">{tool}</p>
+        </div>
+      );
+    });
+
+    setToolListDiv(
+      <div className="toolList">
+        {toolListMap}
+      </div>
+    );
   }
 
-  const addTool = () => {
+  const updateCurrentTool = (event) => {
+    const newTool = event.target.parentNode.querySelector('.kitchenTool').value;
+    setCurrentTool(newTool);
+  }
 
+  const addTool = (event) => {
+    event.preventDefault();
+    
+    if (!toolList.includes(currentTool)) {
+      setToolList([...toolList, currentTool]);
+    }
+
+    const toolListMap = toolList.map((tool) => {
+      return (
+        <div className="tool" key={tool}>
+          <p className="toolText">{tool}</p>
+        </div>
+      );
+    });
+
+    setToolListDiv(
+      <div className="toolList">
+        {toolListMap}
+      </div>
+    );
   }
   
   const addDirection = () => {
@@ -43,9 +143,16 @@ const NewRecipeForm = () => {
     )
   }
   
+  console.log(recipeInformation);
   return (
     <div className="newRecipe">
       <form className="newRecipeForm">
+        <button 
+          className="saveRecipeButton newRecipeFormButton"
+          onClick={saveRecipe}
+        >
+          Save Recipe
+        </button>
         <div className="recipeMainInformation">
           <h1 className="newRecipeTitle">Recipe Information:</h1>
           <p>Recipe Name:</p>
@@ -57,7 +164,7 @@ const NewRecipeForm = () => {
           />
           <p>Description:</p>
           <textarea 
-          className="description"
+          className="recipeDescription"
           placeholder="Quick description of what the recipe is"
           >
           </textarea>
@@ -94,6 +201,7 @@ const NewRecipeForm = () => {
             list="cookingDevices" 
             name="cookingDevice" 
             placeholder="Oven, Grill, Frying Pan"
+            className="cookingDevice"
           />
             <datalist id="cookingDevices">
               <option value="Oven" />
@@ -181,11 +289,13 @@ const NewRecipeForm = () => {
             type="text"
             name="ingredientName"
             placeholder="Tool needed"
+            onChange={updateCurrentTool}
           />
           <br />
+          {toolListDiv}
           <button 
-            className="addIngredientButton newRecipeFormButton"
-            onClick={addIngredient}
+            className="addToolButton newRecipeFormButton"
+            onClick={addTool}
           >
             Add Tool
           </button>
@@ -200,7 +310,7 @@ const NewRecipeForm = () => {
           </textarea>
           <br />
           <button 
-            className="addDirection newRecipeFormButton"
+            className="addDirectionButton newRecipeFormButton"
             onClick={addDirection}
           >
             Add Direction
@@ -244,13 +354,19 @@ const NewRecipeForm = () => {
             />
             <br />
             <button 
-              className="addIngredientButton newRecipeFormButton"
+              className="addTagButton newRecipeFormButton"
               onClick={addTag}
             >
               Add Tag
             </button>
           </div>
         </div>
+        <button 
+          className="saveRecipeButton newRecipeFormButton"
+          onClick={saveRecipe}
+        >
+          Save Recipe
+        </button>
       </form>
     </div>
   );
