@@ -22,10 +22,45 @@
   padding: 10px;
 }
 
-.recipeMetaInformation {
+.fractionInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipeMainInformation {
   display: flex;
   flex-direction: column;
 }
 
 .newRecipeTitle {
+}
+
+.tagList {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tagItem {
+  display: flex;
+  background-color: black;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  margin: 5px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border-radius: 2px;
+}
+
+.tagItemText {
+  margin: 0px;
+  padding: 0px;
+}
+
+.removeX {
+  margin: 0px;
+  padding: 0px;
+  margin-left: 10px;
 }
