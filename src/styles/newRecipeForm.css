@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .newRecipe {
   display: flex;
   justify-content: center;
@@ -10,6 +22,15 @@
   flex-direction: column;
   box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.39);
   padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+input, textarea {
+  font-family: 'Poppins', sans-serif;
+  border: 2px black solid;
+  padding: 8px;
+  font-size: 1rem;
 }
 
 .newRecipeFormButton {
@@ -26,17 +47,88 @@
   cursor: pointer;
 }
 
-.fractionInput {
+.prepTimeInputDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.prepTimeInput {
+  width: 20px;
+  text-align: center;
+}
+
+.cookTimeInputDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.cookTimeInput {
+  width: 20px;
+  text-align: center;
+}
+
+.timeText {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.servings {
+  width: 20px;
+  text-align: center;
+}
+
+.ingredientInputDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.ingredientAmountDiv {
   display: flex;
   flex-direction: column;
+}
+
+.amountDiv {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+}
+
+.amountFull {
+  margin-right: 5px;
+}
+
+.amountFraction {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: inherit;
+}
+
+.fullInput {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-family: inherit;
+}
+
+.fractionInput {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-family: inherit;
+}
+
+.ingredientAmount {
+  font-family: 'Poppins', sans-serif;
 }
 
 .recipeMainInformation {
   display: flex;
   flex-direction: column;
-}
-
-.newRecipeTitle {
 }
 
 .tagList {

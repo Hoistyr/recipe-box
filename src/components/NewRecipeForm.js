@@ -4,8 +4,8 @@ import '../styles/newRecipeForm.css';
 
 const NewRecipeForm = () => {
   const [recipeInformation, setRecipeInformation] = useState({});
-  const [currentIngredient, setCurrentIngredient] = useState('');
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [ingredientListDiv, setIngredientListDiv] = useState([]);
   const [currentTool, setCurrentTool] = useState('');
   const [toolList, setToolList] = useState([]);
   const [toolListDiv, setToolListDiv] = useState([]);
@@ -15,21 +15,61 @@ const NewRecipeForm = () => {
   const [tagList, setTagList] = useState([]);
   const [tagListDiv, setTagListDiv] = useState([]);
   
+  const fractionConverter = (fraction) => {
+    if (fraction === 14) {
+      return 188;
+    }
+    if (fraction === 12) {
+      return 189;
+    }
+    if (fraction === 34) {
+      return 190;
+    }
+    if (fraction === 17) {
+      return 8528;
+    }
+    if (fraction === 19) {
+      return 8529;
+    }
+    if (fraction === 110) {
+      return 8530;
+    }
+    if (fraction === 13) {
+      return 8531;
+    }
+    if (fraction === 23) {
+      return 8532;
+    }
+    if (fraction === 15) {
+      return 8533;
+    }
+    if (fraction === 25) {
+      return 8534;
+    }
+    if (fraction === 35) {
+      return 8535;
+    }
+  }
+  
   const saveRecipe = (event) => {
     event.preventDefault();
     const form = event.target.parentNode;
     const recipeName = form.querySelector('.recipeName').value;
     const recipeDescription = form.querySelector('.recipeDescription').value || '';
-    const prepTime = form.querySelector('.prepTime').value || 0;
-    const cookTime = form.querySelector('.cookTime').value || 0;
+    const prepTime = {
+      hour: form.querySelector('.prepTimeHour').value || 0,
+      minute: form.querySelector('.prepTimeMinute').value || 0,
+    };
+    const cookTime = {
+      hour: form.querySelector('.cookTimeHour').value || 0,
+      minute: form.querySelector('.cookTimeMinute').value || 0,
+    };
     const servings = form.querySelector('.servings').value || 0;
     const cookingDevice = form.querySelector('.cookingDevice').value || '';
     const ovenTemp = form.querySelector('.ovenTemp').value || 0;
     const attribution = form.querySelector('.attribution').value || '';
     const notes = form.querySelector('.recipeNotes').value || '';
     const recipeDifficulty = form.querySelector('.recipeDifficulty').value || '';
-    
-
 
     const recipe = {
       recipeInfo: {
@@ -38,11 +78,8 @@ const NewRecipeForm = () => {
         prepTime: prepTime || 0,
         cookTime: cookTime || 0,
         servings: servings || 0,
-        cookingDevice,
-        cookTemp: {
-          temp: ovenTemp || 0,
-          unit: '',
-        },
+        cookingDevice: cookingDevice || '',
+        cookTemp: ovenTemp || 0,
       },
       ingredients: [
         ...ingredientsList
@@ -70,22 +107,41 @@ const NewRecipeForm = () => {
   
   const addIngredient = (event) => {
     event.preventDefault();
-    
-    if (!toolList.includes(currentTool)) {
-      setToolList([...toolList, currentTool]);
+
+    const ingrInputDiv = event.target.parentNode.querySelector('.ingredientInputDiv');
+    const fullNum = ingrInputDiv.querySelector('.fullInput').value;
+    const numerator = ingrInputDiv.querySelector('.numerator').value;
+    const denominator = ingrInputDiv.querySelector('.denominator').value;
+    const unit = ingrInputDiv.querySelector('.ingredientUnit').value;
+    const name = ingrInputDiv.querySelector('.ingredientName').value;
+
+    const newIngredient = {
+      amount:  {
+        fullNum,
+        numerator,
+        denominator,
+      },
+      unit,
+      name,
     }
+    
+    let ingredientsListMap = '';
+    if (!ingredientsList.includes(newIngredient)) {
+      setIngredientsList([...ingredientsList, newIngredient]);
+      ingredientsListMap = ingredientsList.map((ingredient) => {
+        const fractionCharCode = fractionConverter(Number(String(ingredient.amount.numerator) + String(ingredient.amount.denominator)));
+        return (
+          <div className="ingredient" key={ingredient.name}>
+            <p className="ingredientText">{ingredient.amount.fullNum} {String.fromCharCode(fractionCharCode)} {unit} of {name}</p>
+          </div>
+        );
+      });
+    }
+    
 
-    const toolListMap = toolList.map((tool) => {
-      return (
-        <div className="tool" key={tool}>
-          <p className="toolText">{tool}</p>
-        </div>
-      );
-    });
-
-    setToolListDiv(
-      <div className="toolList">
-        {toolListMap}
+    setIngredientListDiv(
+      <div className="ingredientList">
+        {ingredientsListMap}
       </div>
     );
   }
@@ -137,7 +193,7 @@ const NewRecipeForm = () => {
       </div>
       )
     });
-
+    console.log(tagList);
     setTagListDiv(
       <div className="tagList">
         {tagListDivMap}
@@ -171,34 +227,48 @@ const NewRecipeForm = () => {
           >
           </textarea>
           <p>Preparation Time:</p>
-          <input 
-            className="prepTime"
-            type="number"
-            name="prepTime"
-            placeholder="0"
-          />
-          minutes
+          <div className="prepTimeInputDiv">
+            <input 
+              className="prepTimeHour prepTimeInput"
+              type="number"
+              name="prepTime"
+              placeholder="0"
+            />
+            <p className="timeText">hour(s)</p>
+            <input 
+              className="prepTimeMinute prepTimeInput"
+              type="number"
+              name="prepTime"
+              placeholder="0"
+            />
+            <p className="timeText">minute(s)</p>
+          </div>
           <p>Cook Time:</p>
-          <input 
-            className="cookTime"
-            type="number"
-            name="cookTime"
-            placeholder="0"
-          />
-          minutes
+          <div className="cookTimeInputDiv">
+            <input 
+              className="cookTimeHour cookTimeInput"
+              type="number"
+              name="cookTime"
+              placeholder="0"
+            />
+            <p className="timeText">hour(s)</p>
+            <input 
+              className="cookTimeMinute cookTimeInput"
+              type="number"
+              name="cookTime"
+              placeholder="0"
+            />
+            <p className="timeText">minute(s)</p>
+          </div>
           <p>Servings:</p>
-          <input 
-            className="servings"
-            type="number"
-            name="servings"
-            placeholder="0"
-          />
+            <input 
+              className="servings"
+              type="number"
+              name="servings"
+              placeholder="0"
+            />
+          
           <p>Cooking Device:</p>
-          <input 
-            className="cookingCheck"
-            type="checkbox"
-            name="cookingCheck"
-          />
           <input 
             list="cookingDevices" 
             name="cookingDevice" 
@@ -225,58 +295,72 @@ const NewRecipeForm = () => {
         </div>
         <div className="ingredientsList">
           <h1 className="newRecipeTitle">Ingredients:</h1>
-          <p>Ingredient Amount:</p>
-          <input 
-            className="ingredientAmount"
-            type="number"
-            name="ingredientAmount"
-            placeholder="0"
-          />
-          <div className="fractionInput">
-            <input 
-              className="ingredientAmount"
-              type="number"
-              name="ingredientAmount"
-              placeholder="0"
-            />
-            <input 
-              className="ingredientAmount"
-              type="number"
-              name="ingredientAmount"
-              placeholder="0"
-            />
+          {ingredientListDiv}
+          <div className="ingredientInputDiv">
+            <div className="ingredientAmountDiv">
+            <p>Ingredient Amount:</p>
+              <div className="amountDiv">
+                <div className="amountFull">
+                  <input 
+                    className="ingredientAmount fullInput"
+                    type="number"
+                    name="ingredientAmount"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="amountFraction">
+                  <input 
+                    className="ingredientAmount fractionInput numerator"
+                    type="number"
+                    name="ingredientAmount"
+                    placeholder="1"
+                  />
+                  <input 
+                    className="ingredientAmount fractionInput denominator"
+                    type="number"
+                    name="ingredientAmount"
+                    placeholder="2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="cookingUnitDiv">
+              <p>Measuring Unit:</p>
+              <input 
+                list="cookingUnits" 
+                name="cookingUnits" 
+                placeholder="Ounce, Pound, Tablespoon"
+                className="ingredientUnit"
+              />
+                <datalist id="cookingUnits">
+                  <option value="Teaspoon" />
+                  <option value="Tablespoon" />
+                  <option value="Fluid ounce" />
+                  <option value="Cup" />
+                  <option value="Pint" />
+                  <option value="Quart" />
+                  <option value="Gallon" />
+                  <option value="Milliliter" />
+                  <option value="Liter" />
+                  <option value="Deciliter" />
+                  <option value="Pound" />
+                  <option value="Ounce" />
+                  <option value="Milligram" />
+                  <option value="Gram" />
+                  <option value="Kilogram" />
+                </datalist>
+            </div>
+            <div className="ingredientNameDiv">
+              <p>Ingredient Name:</p>
+              <input 
+                className="ingredientName"
+                type="text"
+                name="ingredientName"
+                placeholder="Rice, Apples, Green Onion"
+                className="ingredientName"
+              />
+            </div>
           </div>
-          <p>Measuring Unit:</p>
-          <input 
-            list="cookingUnits" 
-            name="cookingUnits" 
-            placeholder="Ounce, Pound, Tablespoon"
-          />
-            <datalist id="cookingUnits">
-              <option value="Teaspoon" />
-              <option value="Tablespoon" />
-              <option value="Fluid ounce" />
-              <option value="Cup" />
-              <option value="Pint" />
-              <option value="Quart" />
-              <option value="Gallon" />
-              <option value="Milliliter" />
-              <option value="Liter" />
-              <option value="Deciliter" />
-              <option value="Pound" />
-              <option value="Ounce" />
-              <option value="Milligram" />
-              <option value="Gram" />
-              <option value="Kilogram" />
-            </datalist>
-          <p>Ingredient Name:</p>
-          <input 
-            className="ingredientName"
-            type="text"
-            name="ingredientName"
-            placeholder="Ingredient Name"
-          />
-          <br />
           <button 
             className="addIngredientButton newRecipeFormButton"
             onClick={addIngredient}
