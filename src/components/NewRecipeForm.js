@@ -15,42 +15,6 @@ const NewRecipeForm = () => {
   const [tagList, setTagList] = useState([]);
   const [tagListDiv, setTagListDiv] = useState([]);
   
-  const fractionConverter = (fraction) => {
-    if (fraction === 14) {
-      return 188;
-    }
-    if (fraction === 12) {
-      return 189;
-    }
-    if (fraction === 34) {
-      return 190;
-    }
-    if (fraction === 17) {
-      return 8528;
-    }
-    if (fraction === 19) {
-      return 8529;
-    }
-    if (fraction === 110) {
-      return 8530;
-    }
-    if (fraction === 13) {
-      return 8531;
-    }
-    if (fraction === 23) {
-      return 8532;
-    }
-    if (fraction === 15) {
-      return 8533;
-    }
-    if (fraction === 25) {
-      return 8534;
-    }
-    if (fraction === 35) {
-      return 8535;
-    }
-  }
-  
   const saveRecipe = (event) => {
     event.preventDefault();
     const form = event.target.parentNode;
@@ -114,6 +78,7 @@ const NewRecipeForm = () => {
     const denominator = ingrInputDiv.querySelector('.denominator').value;
     const unit = ingrInputDiv.querySelector('.ingredientUnit').value;
     const name = ingrInputDiv.querySelector('.ingredientName').value;
+    const listCopy = [...ingredientsList];
 
     const newIngredient = {
       amount:  {
@@ -124,21 +89,27 @@ const NewRecipeForm = () => {
       unit,
       name,
     }
+    console.log(newIngredient);
+    const ingredientCheck = listCopy.filter((ingredient) => {
+      if (ingredient.name === newIngredient.name) {
+        return true;
+      }
+      return false;
+    }).length;
     
     let ingredientsListMap = '';
-    if (!ingredientsList.includes(newIngredient)) {
-      setIngredientsList([...ingredientsList, newIngredient]);
+    if (ingredientCheck === 0 && newIngredient.name !== '') {
+      setIngredientsList([...listCopy, newIngredient]);
       ingredientsListMap = ingredientsList.map((ingredient) => {
-        const fractionCharCode = fractionConverter(Number(String(ingredient.amount.numerator) + String(ingredient.amount.denominator)));
         return (
           <div className="ingredient" key={ingredient.name}>
-            <p className="ingredientText">{ingredient.amount.fullNum} {String.fromCharCode(fractionCharCode)} {unit} of {name}</p>
+            <p className="ingredientText">{ingredient.amount.fullNum} {ingredient.amount.numerator}/{ingredient.amount.denominator} {unit} of {name}</p>
           </div>
         );
       });
     }
     
-
+    console.log('ingrList: ', ingredientsList);
     setIngredientListDiv(
       <div className="ingredientList">
         {ingredientsListMap}
