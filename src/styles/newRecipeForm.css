@@ -122,6 +122,14 @@ input, textarea {
   font-family: inherit;
 }
 
+.divisionLine {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background-color: black;
+  width: 100%;
+  height: 2px;
+} 
+
 .ingredientAmount {
   font-family: 'Poppins', sans-serif;
 }
@@ -129,6 +137,31 @@ input, textarea {
 .recipeMainInformation {
   display: flex;
   flex-direction: column;
+}
+
+.ingredient {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ingredientText {
+  margin: 0px;
+}
+
+.removeIngredientDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeIngredientDiv:hover {
+  cursor: pointer;
 }
 
 .toolList {
@@ -157,6 +190,32 @@ input, textarea {
 }
 
 .removeToolDiv:hover {
+  cursor: pointer; 
+}
+
+.directionsList {
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.directionItem {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.removeDirectionDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeDirectionDiv:hover {
   cursor: pointer; 
 }
 

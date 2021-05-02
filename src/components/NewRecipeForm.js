@@ -9,8 +9,8 @@ const NewRecipeForm = () => {
   const [currentTool, setCurrentTool] = useState('');
   const [toolList, setToolList] = useState([]);
   const [toolListDiv, setToolListDiv] = useState([]);
-  const [currentDirection, setCurrentDirection] = useState('');
   const [directionsList, setDirectionsList] = useState([]);
+  const [directionsListDiv, setDirectionsListDiv] = useState([]);
   const [currentTag, setCurrentTag] = useState('');
   const [tagList, setTagList] = useState([]);
   const [tagListDiv, setTagListDiv] = useState([]);
@@ -69,20 +69,19 @@ const NewRecipeForm = () => {
     setRecipeInformation({...recipe});
   }
 
-  
-
-
-  
   const addIngredient = (event) => {
     event.preventDefault();
 
     const ingrInputDiv = event.target.parentNode.querySelector('.ingredientInputDiv');
-    const fullNum = ingrInputDiv.querySelector('.fullInput').value;
+    let fullNum = ingrInputDiv.querySelector('.fullInput').value;
+    if (fullNum === '0') {
+      fullNum = '';
+    }
     const numerator = ingrInputDiv.querySelector('.numerator').value;
-    const denominator = ingrInputDiv.querySelector('.denominator').value;
-    const unit = ingrInputDiv.querySelector('.ingredientUnit').value;
-    const name = ingrInputDiv.querySelector('.ingredientName').value;
-    const listCopy = [...ingredientsList];
+    let denominator = ingrInputDiv.querySelector('.denominator').value;
+    const unit = ingrInputDiv.querySelector('.ingredientUnit').value.toLowerCase();
+    const name = ingrInputDiv.querySelector('.ingredientName').value.toLowerCase();
+    let listCopy = [...ingredientsList];
 
     const newIngredient = {
       amount:  {
@@ -93,33 +92,74 @@ const NewRecipeForm = () => {
       unit,
       name,
     }
-    console.log(newIngredient);
-    const ingredientCheck = listCopy.filter((ingredient) => {
+
+    const inList = listCopy.some((ingredient) => {
       if (ingredient.name === newIngredient.name) {
         return true;
       }
       return false;
-    }).length;
-    
-    let ingredientsListMap = '';
-    if (ingredientCheck === 0 && newIngredient.name !== '') {
-      setIngredientsList([...listCopy, newIngredient]);
-      ingredientsListMap = ingredientsList.map((ingredient) => {
-        return (
-          <div className="ingredient" key={ingredient.name}>
-            <p className="ingredientText">{ingredient.amount.fullNum} {ingredient.amount.numerator}/{ingredient.amount.denominator} {unit} of {name}</p>
-          </div>
-        );
-      });
+    });
+
+    if (inList === false) {
+      listCopy = [...listCopy, newIngredient];
+    }
+
+    setIngredientsList(listCopy);
+  }
+
+  const removeIngredient = (event) => {
+    let ingredient = event.target.parentNode;
+    if (ingredient.className === 'removeIngredientDiv') {
+      ingredient = ingredient.parentNode;
     }
     
-    console.log('ingrList: ', ingredientsList);
+    const ingredientText = ingredient.querySelector('.ingredientText').innerText;
+
+    let listCopy = [...ingredientsList];
+    listCopy = listCopy.filter((listItem) => {
+      const nameIndex = ingredientText.search(listItem.name);
+      let checkText = ingredientText.slice(nameIndex);
+       
+      if (listItem.name === checkText) {
+        return false;
+      }
+      return true;
+    });
+    
+    setIngredientsList(listCopy);
+  }
+
+  useEffect(() => {
+    let ingredientsListMap = ingredientsList.map((ingredient) => {
+      let fractionText = '';
+      if (ingredient.amount.numerator !== '' && !ingredient.amount.denominator !== '') {
+        fractionText = ingredient.amount.numerator + '/' + ingredient.amount.denominator;
+      }
+      
+      let ingredientText =
+        <p className="ingredientText">{ingredient.amount.fullNum} {fractionText} {ingredient.unit} of {ingredient.name}</p>
+      if (ingredient.unit === '') {
+        ingredientText = 
+          <p className="ingredientText">{ingredient.amount.fullNum} {fractionText} {ingredient.name}</p>
+      }
+      
+      return (
+        <div className="ingredient" key={ingredient.name}>
+          {ingredientText}
+          <div className="removeIngredientDiv" onClick={removeIngredient}>
+            <p className="removeX">x</p>
+          </div>
+        </div>
+      );
+    });
+      
+
     setIngredientListDiv(
       <div className="ingredientList">
         {ingredientsListMap}
       </div>
     );
-  }
+  }, [ingredientsList]);
 
   const updateCurrentTool = (event) => {
     const newTool = event.target.parentNode.querySelector('.kitchenTool').value.toLowerCase();
@@ -180,10 +220,73 @@ const NewRecipeForm = () => {
     );
   }, [toolList]);
   
-  const addDirection = () => {
+  const addStep = (event) => {
+    event.preventDefault();
+    const recipeDirections = event.target.parentNode;
+    let copyList = [...directionsList];
+    let stepText = recipeDirections
+      .querySelector('.directionInput')
+      .value
+      .toLowerCase();
+    recipeDirections.querySelector('.directionInput').value = '';
+    stepText = stepText.replace(/\n/g, ' ');
+    console.log('ding: ', stepText.charAt(stepText.length - 1));
+    if (stepText.charAt(stepText.length - 1) === ' ') {
+      stepText = stepText.slice(0, stepText.length - 1);
+    }
+    
+    if (!copyList.includes(stepText)) {
+      copyList = [...copyList, stepText];
+    }
 
+    setDirectionsList(copyList);
   }
 
+  const removeDirection = (event) => {
+    let direction = event.target.parentNode;
+    if (direction.className === 'removeDirectionDiv') {
+      direction = direction.parentNode;
+    }
+    const directionText = direction.querySelector('.directionItemText').innerText;
+
+    let listCopy = [...directionsList];
+    listCopy = listCopy.filter((listItem) => {
+      const nameIndex = directionText.search(listItem);
+      let checkText = directionText.slice(nameIndex);
+
+      if (listItem === checkText) {
+        return false;
+      }
+      return true;
+    });
+    
+    setDirectionsList(listCopy);
+  }
+
+  // Updates the directionsList div when a new step is added or removed
+  useEffect(() => {
+    const directionsListDivMap = directionsList.map((direction, index) => {
+      return (
+      <div className="directionItem" key={`step${index + 1}`}>
+        <p className="directionItemText">
+          {`Step ${index + 1}: `}
+          {direction}
+        </p>
+        <div className="removeDirectionDiv" onClick={removeDirection}>
+          <p className="removeX">x</p>
+        </div>
+      </div>
+      );
+    });
+    console.log(directionsList);
+    setDirectionsListDiv(
+      <div className="directionsList">
+        {directionsListDivMap}
+      </div>
+    );
+  }, [directionsList]);
+
+  // Section for updating recipe tags
   const updateCurrentTag = (event) => {
     const newTag = event.target.parentNode.querySelector('.tagInput').value.toLowerCase();
     setCurrentTag(newTag);
@@ -334,7 +437,6 @@ const NewRecipeForm = () => {
         </div>
         <div className="ingredientsList">
           <h1 className="newRecipeTitle">Ingredients:</h1>
-          {ingredientListDiv}
           <div className="ingredientInputDiv">
             <div className="ingredientAmountDiv">
             <p>Ingredient Amount:</p>
@@ -354,6 +456,7 @@ const NewRecipeForm = () => {
                     name="ingredientAmount"
                     placeholder="1"
                   />
+                  <div className="divisionLine"></div>
                   <input 
                     className="ingredientAmount fractionInput denominator"
                     type="number"
@@ -372,21 +475,21 @@ const NewRecipeForm = () => {
                 className="ingredientUnit"
               />
                 <datalist id="cookingUnits">
-                  <option value="Teaspoon" />
-                  <option value="Tablespoon" />
-                  <option value="Fluid ounce" />
-                  <option value="Cup" />
-                  <option value="Pint" />
-                  <option value="Quart" />
-                  <option value="Gallon" />
-                  <option value="Milliliter" />
-                  <option value="Liter" />
-                  <option value="Deciliter" />
-                  <option value="Pound" />
-                  <option value="Ounce" />
-                  <option value="Milligram" />
-                  <option value="Gram" />
-                  <option value="Kilogram" />
+                  <option value="teaspoon" />
+                  <option value="tablespoon" />
+                  <option value="fluid ounce" />
+                  <option value="cup" />
+                  <option value="pint" />
+                  <option value="quart" />
+                  <option value="gallon" />
+                  <option value="milliliter" />
+                  <option value="liter" />
+                  <option value="deciliter" />
+                  <option value="pound" />
+                  <option value="ounce" />
+                  <option value="milligram" />
+                  <option value="gram" />
+                  <option value="kilogram" />
                 </datalist>
             </div>
             <div className="ingredientNameDiv">
@@ -406,6 +509,8 @@ const NewRecipeForm = () => {
           >
             Add Ingredient
           </button>
+          <h3>Current Ingredient(s):</h3>
+          {ingredientListDiv}
         </div>
         <div className="kitchenTools">
           <h1 className="newRecipeTitle">Tools Needed:</h1>
@@ -437,10 +542,11 @@ const NewRecipeForm = () => {
           <br />
           <button 
             className="addDirectionButton newRecipeFormButton"
-            onClick={addDirection}
+            onClick={addStep}
           >
-            Add Direction
+            Add Step
           </button>
+          {directionsListDiv}
         </div>
         <div className="recipeSecondaryInformation">
           <h1 className="newRecipeTitle">Other Information:</h1>
