@@ -131,6 +131,35 @@ input, textarea {
   flex-direction: column;
 }
 
+.toolList {
+  margin-top: 20px;
+}
+
+.tool {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.toolText {
+  margin: 0px;
+}
+
+.removeToolDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeToolDiv:hover {
+  cursor: pointer; 
+}
+
 .tagList {
   display: flex;
   margin-top: 10px;
@@ -145,18 +174,27 @@ input, textarea {
   margin: 0px;
   padding: 0px;
   margin: 5px;
-  padding-right: 8px;
-  padding-left: 8px;
   border-radius: 2px;
 }
 
 .tagItemText {
   margin: 0px;
   padding: 0px;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.removeTagDiv {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.removeTagDiv:hover {
+  cursor: pointer;
+  background-color: rgb(37, 37, 37);
 }
 
 .removeX {
   margin: 0px;
   padding: 0px;
-  margin-left: 10px;
 }

@@ -68,6 +68,10 @@ const NewRecipeForm = () => {
 
     setRecipeInformation({...recipe});
   }
+
+  
+
+
   
   const addIngredient = (event) => {
     event.preventDefault();
@@ -118,21 +122,53 @@ const NewRecipeForm = () => {
   }
 
   const updateCurrentTool = (event) => {
-    const newTool = event.target.parentNode.querySelector('.kitchenTool').value;
+    const newTool = event.target.parentNode.querySelector('.kitchenTool').value.toLowerCase();
     setCurrentTool(newTool);
   }
 
+  const handleToolKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      addTool(event);
+    }
+  }
+  
   const addTool = (event) => {
     event.preventDefault();
-    
+    event.target.parentNode.querySelector('.kitchenTool').value = '';
     if (!toolList.includes(currentTool)) {
       setToolList([...toolList, currentTool]);
     }
+  }
 
+  const removeTool = (event) => {
+    let tool = event.target.parentNode;
+    if (tool.className === 'removeToolDiv') {
+      tool = tool.parentNode;
+    }
+    const toolText = tool.querySelector('.toolText').innerText;
+    console.log(toolText);
+
+    let listCopy = [...toolList];
+    listCopy = listCopy.filter((listItem) => {
+      if (listItem === toolText) {
+        return false;
+      }
+      return true;
+    });
+    console.log(listCopy);
+    
+    setToolList(listCopy);
+  }
+
+  //Updates the toolList div when a tool is added or removed
+  useEffect(() => {
     const toolListMap = toolList.map((tool) => {
       return (
         <div className="tool" key={tool}>
           <p className="toolText">{tool}</p>
+          <div className="removeToolDiv" onClick={removeTool}>
+            <p className="removeX">x</p>
+          </div>
         </div>
       );
     });
@@ -142,25 +178,60 @@ const NewRecipeForm = () => {
         {toolListMap}
       </div>
     );
-  }
+  }, [toolList]);
   
   const addDirection = () => {
 
   }
 
+  const updateCurrentTag = (event) => {
+    const newTag = event.target.parentNode.querySelector('.tagInput').value.toLowerCase();
+    setCurrentTag(newTag);
+  }
+
+  const handleTagKeyPress = (event) => {
+    console.log(event.key);
+    if (event.key === 'Enter') {
+      addTag(event);
+    }
+  }
+  
   const addTag = (event) => {
     event.preventDefault();
-    const newTag = event.target.parentNode.querySelector('.tagInput').value;
+    event.target.parentNode.querySelector('.tagInput').value = '';
 
-    if (!tagList.includes(newTag)) {
-      setTagList([...tagList, newTag]);
+    if (!tagList.includes(currentTag)) {
+      setTagList([...tagList, currentTag]);
     }
+  }
+
+  const removeTag = (event) => {
+    let tagItem = event.target.parentNode;
+    if (tagItem.className === 'removeTagDiv') {
+      tagItem = tagItem.parentNode;
+    }
+    const tagText = tagItem.querySelector('.tagItemText').innerText;
+
+    let listCopy = [...tagList];
+    listCopy = listCopy.filter((listItem) => {
+      if (listItem === tagText) {
+        return false;
+      }
+      return true;
+    });
     
+    setTagList(listCopy);
+  }
+
+  // Updates the div for the recipes tags when a tag is added or removed
+  useEffect(() => {
     const tagListDivMap = tagList.map((tag) => {
       return (
       <div className="tagItem" key={tag}>
         <p className="tagItemText">{tag}</p>
-        <p className="removeX">x</p>
+        <div className="removeTagDiv" onClick={removeTag}>
+          <p className="removeX">x</p>
+        </div>
       </div>
       )
     });
@@ -169,8 +240,8 @@ const NewRecipeForm = () => {
       <div className="tagList">
         {tagListDivMap}
       </div>
-    )
-  }
+    );
+  }, [tagList]);
   
   console.log(recipeInformation);
   return (
@@ -253,9 +324,6 @@ const NewRecipeForm = () => {
               <option value="Waffle Iron" />
               <option value="Frying Pan" />
             </datalist>
-           {/* 
-            TODO: Add an input for an oven if the checkmark is clicked
-           */}
            <p>Cooking Temperature:</p>
            <input 
             className="ovenTemp"
@@ -345,8 +413,9 @@ const NewRecipeForm = () => {
             className="kitchenTool"
             type="text"
             name="ingredientName"
-            placeholder="Tool needed"
+            placeholder="Whisk, spoon, chef's knife"
             onChange={updateCurrentTool}
+            onKeyPress={handleToolKeyPress}
           />
           <br />
           {toolListDiv}
@@ -408,6 +477,8 @@ const NewRecipeForm = () => {
               type="text"
               name="tagInput"
               placeholder="Add a recipe tag (e.g. breakfast, quick, holiday, etc)"
+              onChange={updateCurrentTag}
+              onKeyPress={handleTagKeyPress}
             />
             <br />
             <button 
