@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import uniqid from 'uniqid';
 
 import '../styles/newRecipeForm.css';
 
@@ -63,7 +64,7 @@ const NewRecipeForm = () => {
         ...tagList
       ],
       // TODO: Add a random generator for to create an id for the recipe when it is saved 
-      id: '',
+      id: uniqid.time('recipe-'),
     }
 
     setRecipeInformation({...recipe});

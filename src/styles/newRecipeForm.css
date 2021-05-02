@@ -251,6 +251,7 @@ input, textarea {
 .removeTagDiv:hover {
   cursor: pointer;
   background-color: rgb(37, 37, 37);
+  border-radius: 4px;
 }
 
 .removeX {
