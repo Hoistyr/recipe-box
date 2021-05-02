@@ -357,7 +357,7 @@ const NewRecipeForm = () => {
         >
           Save Recipe
         </button>
-        <div className="recipeMainInformation">
+        <div className="recipeMainInformation formSection">
           <h1 className="newRecipeTitle">Recipe Information:</h1>
           <p>Recipe Name:</p>
           <input 
@@ -436,7 +436,7 @@ const NewRecipeForm = () => {
             placeholder="0°"
           />
         </div>
-        <div className="ingredientsList">
+        <div className="ingredientsList formSection">
           <h1 className="newRecipeTitle">Ingredients:</h1>
           <div className="ingredientInputDiv">
             <div className="ingredientAmountDiv">
@@ -510,10 +510,10 @@ const NewRecipeForm = () => {
           >
             Add Ingredient
           </button>
-          <h3>Current Ingredient(s):</h3>
+          <h2>Current Ingredient(s):</h2>
           {ingredientListDiv}
         </div>
-        <div className="kitchenTools">
+        <div className="kitchenTools formSection">
           <h1 className="newRecipeTitle">Tools Needed:</h1>
           <input 
             className="kitchenTool"
@@ -532,7 +532,7 @@ const NewRecipeForm = () => {
             Add Tool
           </button>
         </div>
-        <div className="recipeDirections">
+        <div className="recipeDirections formSection">
           <h1 className="newRecipeTitle">Directions:</h1>
 
           <textarea 
@@ -549,7 +549,7 @@ const NewRecipeForm = () => {
           </button>
           {directionsListDiv}
         </div>
-        <div className="recipeSecondaryInformation">
+        <div className="recipeSecondaryInformation formSection">
           <h1 className="newRecipeTitle">Other Information:</h1>
           <p>Attribution:</p>
           <input 

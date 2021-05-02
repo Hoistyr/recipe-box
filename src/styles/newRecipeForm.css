@@ -16,7 +16,7 @@ input[type=number] {
 }
 
 .newRecipeForm {
-  margin-top: 20px;
+  margin-top: 100px;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,12 @@ input, textarea {
   border: 2px black solid;
   padding: 8px;
   font-size: 1rem;
+  border-radius: 2px;
+}
+
+.formSection {
+  padding-bottom: 20px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.555);
 }
 
 .newRecipeFormButton {
