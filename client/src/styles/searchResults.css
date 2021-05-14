@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.searchCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+
+.searchCards a {
+  text-decoration: none;
+  color: black;
+}

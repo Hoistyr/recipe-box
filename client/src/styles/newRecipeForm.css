@@ -1,0 +1,277 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.newRecipe {
+  display: flex;
+  justify-content: center;
+}
+
+.newRecipeForm {
+  margin-top: 100px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.39);
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+input, textarea {
+  font-family: 'Poppins', sans-serif;
+  border: 2px black solid;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 2px;
+}
+
+.formSection {
+  padding-bottom: 20px;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.555);
+}
+
+.newRecipeFormButton {
+  background-color: #006994;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 2px;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.newRecipeFormButton:hover {
+  cursor: pointer;
+}
+
+.prepTimeInputDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.prepTimeInput {
+  width: 20px;
+  text-align: center;
+}
+
+.cookTimeInputDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.cookTimeInput {
+  width: 20px;
+  text-align: center;
+}
+
+.timeText {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.servings {
+  width: 20px;
+  text-align: center;
+}
+
+.ingredientInputDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.ingredientAmountDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.amountDiv {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+}
+
+.amountFull {
+  margin-right: 5px;
+}
+
+.amountFraction {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: inherit;
+}
+
+.fullInput {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-family: inherit;
+}
+
+.fractionInput {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-family: inherit;
+}
+
+.divisionLine {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background-color: black;
+  width: 100%;
+  height: 2px;
+} 
+
+.ingredientAmount {
+  font-family: 'Poppins', sans-serif;
+}
+
+.recipeMainInformation {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ingredientText {
+  margin: 0px;
+}
+
+.removeIngredientDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeIngredientDiv:hover {
+  cursor: pointer;
+}
+
+.toolList {
+  margin-top: 20px;
+}
+
+.tool {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.toolText {
+  margin: 0px;
+}
+
+.removeToolDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeToolDiv:hover {
+  cursor: pointer; 
+}
+
+.directionsList {
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.directionItem {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.removeDirectionDiv {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.removeDirectionDiv:hover {
+  cursor: pointer; 
+}
+
+.tagList {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tagItem {
+  display: flex;
+  background-color: black;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  margin: 5px;
+  border-radius: 2px;
+}
+
+.tagItemText {
+  margin: 0px;
+  padding: 0px;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.removeTagDiv {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.removeTagDiv:hover {
+  cursor: pointer;
+  background-color: rgb(37, 37, 37);
+  border-radius: 4px;
+}
+
+.removeX {
+  margin: 0px;
+  padding: 0px;
+}
+
+.submitErrorText {
+  color: red;
+}
+
+.submitSuccess {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

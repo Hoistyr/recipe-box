@@ -1,0 +1,166 @@
+.recipes {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.recipes a {
+  text-decoration: none;
+  color: black;
+}
+
+.recipeCard {
+  width: 400px;
+  height: 250px;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.39);
+  margin: 20px;
+  display: flex;
+  border-radius: 2px;
+  flex-direction: column;
+}
+
+.recipeCard:hover {
+  cursor: pointer;
+}
+
+.viewRecipeName {
+  margin: 0px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 5px;
+  height: 50px;
+  border-bottom: solid 2px #006994; 
+  font-size: 2rem;
+  color: black;
+}
+
+.recipe {
+  display: flex;
+  justify-content: center;
+}
+
+.singleRecipe {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.39);
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.singleRecipeName {
+  margin-bottom: 5px;
+}
+
+.recipeDescription {
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 0px;
+}
+
+.singleRecipeGenInfo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.singleGenInfoDiv {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.singlePrepTimeDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.singleTimeText {
+  display: flex;
+}
+
+.singleRecipeTagList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.singleTagItem {
+  display: flex;
+  background-color: black;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  margin: 5px;
+  border-radius: 2px;
+}
+
+.singleTagItem:hover {
+  cursor: pointer;
+}
+
+.cardTagList {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.cardTagItem {
+  display: flex;
+  background-color: black;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  margin: 5px;
+  border-radius: 2px;
+  font-size: 0.9rem;
+}
+
+.cardInformation {
+  height: 100%;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.difficultyEasy {
+  border-bottom: solid 2px gray;
+}
+
+.difficultyMedium {
+  border-bottom: solid 2px gray;
+}
+
+.difficultyHard {
+  border-bottom: solid 2px gray;
+}
+
+.singleViewButtonDiv {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+.singleViewButton {
+  background-color: black;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  border-radius: 2px;
+  padding: 10px;
+  width: auto;
+  margin-left: 20px;
+}
+
+.singleViewButton:hover {
+  cursor: pointer;
+}
+
